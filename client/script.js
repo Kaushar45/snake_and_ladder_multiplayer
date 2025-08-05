@@ -33,6 +33,15 @@ const drawLine = (x1, y1, x2, y2) => {
   ctx.stroke();
 };
 
+const drawPawn = (x, y, color) => {
+  drawCircle(
+    blockSize / 2 + blockSize * x,
+    blockSize / 2 + blockSize * y,
+    blockSize / 2 - blockSize / 6,
+    color
+  );
+};
+
 for (let i = 1; i < 10; i++) {
   drawLine(blockSize * i, 0, blockSize * i, canvasSize);
 }
@@ -45,3 +54,6 @@ drawCircle(
   blockSize / 2 - blockSize / 5,
   "red"
 );
+
+drawPawn(1, 1, "green");
+drawPawn(0, 3, "red");
