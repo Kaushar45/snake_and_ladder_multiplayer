@@ -109,6 +109,17 @@ const path = {
   100: { x: 0, y: 0 },
 };
 
+const snake = [
+  { m: 99, t: 5 },
+  { m: 93, t: 5 },
+  { m: 95, t: 10 },
+]
+
+const ladder = [
+  { m: 6, t: 90 },
+  { m: 6, t: 12 },
+]
+
 const canvasSize = 500;
 const blockSize = canvasSize / 10;
 const canvasElement = document.getElementById("canvas");
