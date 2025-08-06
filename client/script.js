@@ -109,16 +109,37 @@ const path = {
   100: { x: 0, y: 0 },
 };
 
+// function generatePath(rows = 10, cols = 10) {
+//   const path = {};
+//   let index = 1;
+
+//   for (let y = rows - 1; y >= 0; y--) {
+//     if ((rows - 1 - y) % 2 === 0) {
+//       // Left to right
+//       for (let x = 0; x < cols; x++) {
+//         path[index++] = { x, y };
+//       }
+//     } else {
+//       // Right to left
+//       for (let x = cols - 1; x >= 0; x--) {
+//         path[index++] = { x, y };
+//       }
+//     }
+//   }
+
+//   return path;
+// }
+
 const snake = [
   { m: 99, t: 5 },
   { m: 93, t: 5 },
   { m: 95, t: 10 },
-]
+];
 
 const ladder = [
   { m: 6, t: 90 },
   { m: 6, t: 12 },
-]
+];
 
 const canvasSize = 500;
 const blockSize = canvasSize / 10;
@@ -171,5 +192,15 @@ drawCircle(
 
 drawPawn(1, 1, "green");
 drawPawn(0, 3, "red");
+const drawSnake = () => {
+  ctx.beginPath();
+  ctx.lineWidth = "2";
+  ctx.fillStyle = "#ffffa8ff";
+  ctx.strokeStyle = "#bcffffff";
+  ctx.rect(50, 100, 100, 400);
+  ctx.fill();
+  ctx.stroke();
+};
 
+drawSnake();
 console.log(path);
