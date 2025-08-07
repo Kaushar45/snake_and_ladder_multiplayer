@@ -16,6 +16,12 @@ io.on("connection", (socket) => {
   socket.on("info", (msg) => {
     console.log(msg);
   });
+
+  socket.on("play", () => {
+    const diceValue = Math.ceil(Math.random() * 6);
+    console.log(diceValue);
+    io.emit("play", diceValue);
+  });
   io.on("disconnected", (msg) => {
     console.log(msg);
     console.log(socket.id);
