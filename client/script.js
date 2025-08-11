@@ -1,12 +1,14 @@
-import { console } from "node:inspector";
-
 const socket = io("ws://localhost:5000");
 
+const userName = prompt("enter your name");
 socket.on("info", (msg) => {
   console.log(msg);
 });
 
-socket.emit("info", "hello from client");
+socket.on("game", ({ client, turn }) => {
+  console.log(client, turn);
+});
+socket.emit("info", userName);
 
 socket.emit("play", "");
 
@@ -182,7 +184,7 @@ webpImage.onload = () => {
 };
 
 const playBtnEle = document.getElementById("play");
-playBtnEle.style.backgroundColor = "#fccccc";
+// playBtnEle.style.backgroundColor = "#4f4f4fff";
 playBtnEle.style.color = "#000000";
 playBtnEle.addEventListener("click", () => {
   socket.emit("play", "");
