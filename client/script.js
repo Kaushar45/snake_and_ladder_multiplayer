@@ -1,12 +1,24 @@
 const socket = io("ws://localhost:5000");
 
+const turnEle = document.getElementById("turn");
+turnEle.innerHTML = " ";
+const diceValueEle = document.getElementById("dice");
+diceValueEle.innerHTML = "";
+
 const userName = prompt("enter your name");
 socket.on("info", (msg) => {
   console.log(msg);
+  console.log(`Name: ${userName}, ID : ${socket.id}`);
 });
 
-socket.on("game", ({ client, turn }) => {
-  console.log(client, turn);
+socket.on("game", ({ diceValue, clients, turn }) => {
+  console.log(clients, turn, socket.id);
+  if (turn === socket.id) {
+    turnEle.innerHTML = "Your Turn";
+  } else {
+    turnEle.innerHTML = "";
+  }
+  diceValueEle.innerHTML = diceValue ? diceValue : "";
 });
 socket.emit("info", userName);
 
@@ -190,10 +202,10 @@ playBtnEle.addEventListener("click", () => {
   socket.emit("play", "");
 });
 
-socket.on("play", (msg) => {
-  const diceValueEle = document.getElementById("dice");
-  diceValueEle.innerHTML = msg;
-});
+// socket.on("play", (msg) => {
+//   const diceValueEle = document.getElementById("dice");
+//   diceValueEle.innerHTML = msg;
+// });
 
 const drawCircle = (x, y, r, fillColor) => {
   ctx.beginPath();
@@ -228,11 +240,11 @@ for (let i = 1; i < 10; i++) {
 for (let i = 1; i < 10; i++) {
   drawLine(0, blockSize * i, canvasSize, blockSize * i);
 }
-drawCircle(
-  blockSize / 2 + blockSize * 2,
-  blockSize / 2 + blockSize * 1,
-  blockSize / 2 - blockSize / 5,
-  "red"
-);
+// drawCircle(
+//   blockSize / 2 + blockSize * 2,
+//   blockSize / 2 + blockSize * 1,
+//   blockSize / 2 - blockSize / 5,
+//   "red"
+// );
 
 drawPawn(1, "green");
