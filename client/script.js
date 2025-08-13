@@ -19,6 +19,7 @@ socket.on("game", ({ diceValue, clients, turn }) => {
     turnEle.innerHTML = "";
   }
   diceValueEle.innerHTML = diceValue ? diceValue : "";
+  draw(clients)
 });
 socket.emit("info", userName);
 
@@ -247,4 +248,12 @@ for (let i = 1; i < 10; i++) {
 //   "red"
 // );
 
-drawPawn(1, "green");
+const draw = (clients) => {
+  // clear screen
+  ctx.clearRect(0, 0, canvasSize, canvasSize)
+  ctx.drawImage(webpImage, 0, 0, canvasSize, canvasSize); // Example with custom position and size
+  // draw pawn
+  clients.forEach((e) => {
+    drawPawn(e.position, "green")
+  })
+}
