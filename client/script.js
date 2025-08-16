@@ -19,7 +19,7 @@ socket.on("game", ({ diceValue, clients, turn }) => {
     turnEle.innerHTML = "";
   }
   diceValueEle.innerHTML = diceValue ? diceValue : "";
-  draw(clients)
+  draw(clients);
 });
 socket.emit("info", userName);
 
@@ -128,61 +128,6 @@ const path = {
   100: { x: 0, y: 0 },
 };
 
-// function generatePath(rows = 10, cols = 10) {
-//   const path = {};
-//   let index = 1;
-
-//   for (let y = rows - 1; y >= 0; y--) {
-//     if ((rows - 1 - y) % 2 === 0) {
-//       // Left to right
-//       for (let x = 0; x < cols; x++) {
-//         path[index++] = { x, y };
-//       }
-//     } else {
-//       // Right to left
-//       for (let x = cols - 1; x >= 0; x--) {
-//         path[index++] = { x, y };
-//       }
-//     }
-//   }
-
-//   return path;
-// }
-
-const snake = [
-  { h: 18, t: 1 },
-  { h: 8, t: 4 },
-  { h: 26, t: 10 },
-  { h: 39, t: 5 },
-  { h: 51, t: 6 },
-  { h: 54, t: 36 },
-  { h: 56, t: 1 },
-  { h: 60, t: 23 },
-  { h: 75, t: 28 },
-  { h: 83, t: 45 },
-  { h: 85, t: 59 },
-  { h: 90, t: 48 },
-  { h: 92, t: 25 },
-  { h: 97, t: 87 },
-  { h: 99, t: 63 },
-];
-
-const ladder = [
-  { from: 3, to: 20 },
-  { from: 6, to: 14 },
-  { from: 11, to: 28 },
-  { from: 15, to: 34 },
-  { from: 17, to: 74 },
-  { from: 22, to: 37 },
-  { from: 38, to: 59 },
-  { from: 49, to: 67 },
-  { from: 57, to: 76 },
-  { from: 61, to: 78 },
-  { from: 73, to: 86 },
-  { from: 81, to: 98 },
-  { from: 88, to: 91 },
-];
-
 const canvasSize = 500;
 const blockSize = canvasSize / 10;
 const webpImage = new Image();
@@ -250,10 +195,10 @@ for (let i = 1; i < 10; i++) {
 
 const draw = (clients) => {
   // clear screen
-  ctx.clearRect(0, 0, canvasSize, canvasSize)
+  ctx.clearRect(0, 0, canvasSize, canvasSize);
   ctx.drawImage(webpImage, 0, 0, canvasSize, canvasSize); // Example with custom position and size
   // draw pawn
   clients.forEach((e) => {
-    drawPawn(e.position, "green")
-  })
-}
+    drawPawn(e.position, "green");
+  });
+};
