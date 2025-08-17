@@ -84,14 +84,13 @@ io.on("connection", (socket) => {
     io.emit("game", { clients, turn });
     console.log(clients);
   });
-
   socket.on("play", playGame(socket));
 
   // socket.on("game", () => {
   //   io.emit("game", { clients, turn });
   // });
 
-  socket.on("disconnected", (msg) => {
+  socket.on("disconnect", (msg) => {
     console.log(msg, socket.id);
     clients = clients.filter((e) => e.socketId != socket.id);
     if (clients.length === 0) {
@@ -104,7 +103,7 @@ io.on("connection", (socket) => {
 
 httpServer.listen(5000, (e) => {
   if (e) {
-    console.log(e);
+    return console.log(e);
   }
   console.log("server started on 5000");
 });
