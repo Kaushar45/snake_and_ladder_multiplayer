@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
       turn = socket.id;
     }
     socket.emit("info", "hello from server");
-    clients.push({ name, socketId: socket.id, position: 1 });
+    clients.push({ name, socketId: socket.id, position: 90 });
     io.emit("game", { clients, turn });
     console.log(clients);
   });
@@ -158,6 +158,10 @@ const isSnakePositionMatch = (position) => {
 
 const updatePosition = (position, diceValue) => {
   position += diceValue;
+  const newPos = position + diceValue;
+  if (newPos <= 100) {
+    position = newPos;
+  }
   let { snakeMatch, t } = isSnakePositionMatch(position);
   let { ladderMatch, to } = isLadderPositionMatch(position);
   while (snakeMatch || ladderMatch) {
@@ -183,8 +187,25 @@ const updatePosition = (position, diceValue) => {
 
 const updateTurn = (index, diceValue) => {
   if (diceValue !== 6) {
-    index = (index + 1) % clients.length;
-    turn = clients[index].socketId;
+    let count = clients.length;
+    while (true) {
+      index = (index + 1) % clients.length;
+      console.log(index);
+      turn = clients[index].socketId;
+      console.log(turn, index);
+      if (clients[index].position >= 100) {
+        // check for position if user has completed the game
+        index = (index + 1) % clients.length;
+        turn = clients[index].socketId;
+        if (count <= 0) {
+          break;
+        }
+      } else {
+        break;
+      }
+      count--;
+    }
+    console.log("next turn updated");
   }
   console.log(`Next turn is : ${clients[index].name}, ${turn}`);
   return turn;
