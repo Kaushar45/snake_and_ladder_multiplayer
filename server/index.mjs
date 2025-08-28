@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
       turn = socket.id;
     }
     socket.emit("info", "hello from server");
-    clients.push({ name, socketId: socket.id, position: 90 });
+    clients.push({ name, socketId: socket.id, position: 1 });
     io.emit("game", { clients, turn });
     console.log(clients);
   });
@@ -187,25 +187,17 @@ const updatePosition = (position, diceValue) => {
 
 const updateTurn = (index, diceValue) => {
   if (diceValue !== 6) {
-    let count = clients.length;
-    while (true) {
+    for (let i = 0; i < clients.length; i++) {
       index = (index + 1) % clients.length;
-      console.log(index);
       turn = clients[index].socketId;
-      console.log(turn, index);
       if (clients[index].position >= 100) {
         // check for position if user has completed the game
         index = (index + 1) % clients.length;
         turn = clients[index].socketId;
-        if (count <= 0) {
-          break;
-        }
       } else {
         break;
       }
-      count--;
     }
-    console.log("next turn updated");
   }
   console.log(`Next turn is : ${clients[index].name}, ${turn}`);
   return turn;
